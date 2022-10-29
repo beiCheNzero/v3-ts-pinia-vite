@@ -1,0 +1,10 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.node.json",
+  "include": ["vite.config.*", "vitest.config.*", "cypress.config.*"],
+  "compilerOptions": {
+    // 合成：主要是为了这个文件最终是被合并搭配tsconfig.json文件中
+    // 主要部署在生产阶段的配置
+    "composite": true,
+    "types": ["node"]
+  }
+}
