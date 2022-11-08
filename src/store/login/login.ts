@@ -9,8 +9,9 @@ import { localCache } from '@/utils/cache'
 import router from '@/router'
 import { LOGIN_TOKEN } from '@/global/constant'
 import type { ILoginState } from '@/types/login_state_types'
-import { mapMenusToRoutes } from '@/utils/map-menus'
+import { mapMenusToPermissions, mapMenusToRoutes } from '@/utils/map-menus'
 import type { RouteRecordRaw } from 'vue-router'
+import useMainStore from '../main/main'
 
 /*
  * 第一个传入的泛型是'login'的类型
@@ -22,7 +23,8 @@ const useLoginStore = defineStore('login', {
   state: (): ILoginState => ({
     token: localCache.getCache(LOGIN_TOKEN) ?? '',
     userInfo: localCache.getCache('userInfo') ?? {},
-    userMenus: localCache.getCache('userMenus') ?? []
+    userMenus: localCache.getCache('userMenus') ?? [],
+    permissions: []
   }),
   actions: {
     async loginAccountActions(account: IAccount) {
@@ -45,6 +47,14 @@ const useLoginStore = defineStore('login', {
       localCache.setCache('userInfo', this.userInfo)
       localCache.setCache('userMenus', this.userMenus)
 
+      // 请求所有的数据(角色，部门)
+      const mainStore = useMainStore()
+      mainStore.fetchEntireDataAction()
+
+      // 获取登录用户所有的按钮权限
+      const permissions = mapMenusToPermissions(userMenus)
+      this.permissions = permissions
+
       /*
        * 5.动态添加路由
        */
@@ -64,33 +74,42 @@ const useLoginStore = defineStore('login', {
         this.userInfo = userInfo
         this.userMenus = userMenus
 
+        // 请求所有的数据(角色，部门)
+        const mainStore = useMainStore()
+        mainStore.fetchEntireDataAction()
+
         // 动态添加路由
         const routes = mapMenusToRoutes(userMenus)
         routes.forEach((route) => router.addRoute('main', route))
       }
     }
-  }
+  },
   // 持久化存储
-  // persist: {
-  //   enabled: true,
-  //   strategies: [
-  //     {
-  //       storage: localStorage, //localStorage存储多个key
-  //       paths: ['token']
-  //       // key: 'token'
-  //     },
-  //     {
-  //       storage: localStorage,
-  //       paths: ['userInfo']
-  //       // key: 'userInfo'
-  //     },
-  //     {
-  //       storage: localStorage,
-  //       paths: ['userMenus']
-  //       // key: 'userMenus'
-  //     }
-  //   ]
-  // }
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        storage: localStorage,
+        paths: ['permissions'],
+        key: 'permissions'
+      }
+      // {
+      //   storage: localStorage, //localStorage存储多个key
+      //   paths: ['token']
+      //   // key: 'token'
+      // },
+      // {
+      //   storage: localStorage,
+      //   paths: ['userInfo']
+      //   // key: 'userInfo'
+      // },
+      // {
+      //   storage: localStorage,
+      //   paths: ['userMenus']
+      //   // key: 'userMenus'
+      // }
+    ]
+  }
 })
 
 export default useLoginStore

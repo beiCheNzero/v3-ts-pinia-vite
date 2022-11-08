@@ -38,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed } from 'vue'
 import useLoginStore from '@/store/login/login'
 import { useRoute, useRouter } from 'vue-router'
 import { mapPathToMenu } from '@/utils/map-menus'
@@ -64,8 +64,10 @@ const handleItemClick = (subitem: any) => {
 
 // 3.默认选中的菜单
 const route = useRoute()
-const pathMenu = mapPathToMenu(route.path, userMenus)
-const defaultActive = ref(pathMenu.id + '')
+const defaultActive = computed(() => {
+  const pathMenu = mapPathToMenu(route.path, userMenus)
+  return pathMenu.id + ''
+})
 </script>
 
 <style scoped lang="less">

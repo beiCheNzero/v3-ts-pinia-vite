@@ -1,10 +1,14 @@
-<script setup lang="ts"></script>
-
 <template>
   <div class="app">
-    <router-view />
+    <el-config-provider :locale="zhCn">
+      <router-view />
+    </el-config-provider>
   </div>
 </template>
+
+<script setup lang="ts">
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
+</script>
 
 <style scoped lang="less">
 .app {

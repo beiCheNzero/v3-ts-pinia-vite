@@ -35,6 +35,7 @@ const handleFoldChange = (Fold: boolean) => {
 .main {
   height: 100%;
 }
+
 .main-container {
   height: 100%;
 
@@ -57,10 +58,20 @@ const handleFoldChange = (Fold: boolean) => {
     &::-webkit-scrollbar {
       display: none;
     }
+
+    // .main-container-2 {
+    //   background: rgb(241, 241, 241);
+    // }
   }
 
-  .container-main .main-container-2 {
-    background: #f0f2f5;
+  .container-main {
+    width: 100%;
+    background: #f3f3f3;
   }
+
+  // .container-main .main-container-2 {
+  //   width: 100%;
+  //   background: #f9fcff;
+  // }
 }
 </style>

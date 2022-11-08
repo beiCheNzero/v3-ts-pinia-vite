@@ -23,7 +23,7 @@
             fit="fill"
             src="https://haixia-1303842518.cos.ap-guangzhou.myqcloud.com/%E6%B5%B7%E9%9C%9E%2Fhead-photo%2F%E6%9D%8E%E4%BD%B3%E4%B9%90.jpg"
           ></el-avatar>
-          <span class="name">beichen</span>
+          <span class="name">{{ userName }}</span>
         </span>
         <template #dropdown>
           <el-dropdown-menu>
@@ -45,12 +45,22 @@
 
 <script setup lang="ts">
 import { LOGIN_TOKEN } from '@/global/constant'
+import useLoginStore from '@/store/login/login'
+import useSystemStore from '@/store/main/system/system'
 import { localCache } from '@/utils/cache'
 import { useRouter } from 'vue-router'
 
+const loginStore = useLoginStore()
+const userName = loginStore.userInfo.name
+
 const router = useRouter()
 const handleExitClick = () => {
+  // 退出后重置store中的数据，避免下一个用户登录会有不该有的数据
+  const systemStore = useSystemStore()
+  systemStore.$reset()
   localCache.removeCache(LOGIN_TOKEN)
+  localCache.removeCache('userMenus')
+  localCache.removeCache('permissions')
   router.push('/login')
 }
 </script>
