@@ -36,7 +36,7 @@ router.beforeEach((to, from) => {
   }
 
   // 如果是进入到main中/token有值
-  if (to.path === '/main') return firstMenu.url
+  if (to.path === '/main') return `${firstMenu.url}`
 })
 
 export default router

@@ -1,4 +1,6 @@
-const searchConfig = {
+import type { ISearchProps } from "@/types"
+
+const searchConfig: ISearchProps = {
   pageName: 'role',
   formItems: [
     {

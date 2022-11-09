@@ -15,6 +15,7 @@ module.exports = {
   },
   // 可以用来关闭某些eslint的警告
   rules: {
-    'vue/multi-word-component-names': 'off'
+    'vue/multi-word-component-names': 'off',
+    'no-undef': 'off'
   }
 }

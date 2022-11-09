@@ -56,7 +56,8 @@ const contentConfig: IContentProps = {
       label: '操作',
       width: '150px'
     }
-  ]
+  ],
+  isPagination: true
 }
 
 export default contentConfig

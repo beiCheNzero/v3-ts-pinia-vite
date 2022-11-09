@@ -30,6 +30,20 @@ export interface IMainState {
   entireMenus: any[]
 }
 
+interface ISearch {
+  type: string
+  prop: string
+  label: string
+  options?: any[]
+  placeholder?: string
+  initialValue?: string
+}
+
+export interface ISearchProps {
+  pageName: string
+  formItems: ISearch[]
+}
+
 export interface IContentProps {
   pageName: string
   header: {
@@ -51,7 +65,7 @@ export interface IContentProps {
       children: string
     }
   }
-  isPagination: boolean
+  isPagination?: boolean
 }
 export interface IModalConfig {
   pageName: string

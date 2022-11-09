@@ -1,12 +1,14 @@
-const searchConfig = {
-  pageName: 'department',
+import type { ISearchProps } from '@/types'
+
+const searchConfig: ISearchProps = {
+  pageName: 'goods',
   formItems: [
     {
       type: 'input',
       prop: 'name',
       label: '部门名称',
       placeholder: '请输入查询的部门名称',
-      initValue: ''
+      initialValue: ''
     },
     {
       type: 'input',

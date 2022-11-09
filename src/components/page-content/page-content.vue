@@ -64,6 +64,7 @@
           </template>
           <template v-else>
             <el-table-column
+              show-overflow-tooltip
               :align="item.align ?? 'center'"
               v-bind="item"
             ></el-table-column>

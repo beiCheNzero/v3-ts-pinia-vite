@@ -2,7 +2,7 @@
 // export const TIME_OUT = 10000
 
 let BASE_URL = ''
-let TIME_OUT = 10000
+const TIME_OUT = 10000
 
 // console.log(import.meta.env.DEV) // true  开发环境
 // console.log(import.meta.env.PROD) // false   生产环境
